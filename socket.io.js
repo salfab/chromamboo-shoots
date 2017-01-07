@@ -1,7 +1,5 @@
 var socketio = require('socket.io')
 
-module.exports.listen = function(app)
-{
     io = socketio.listen(app);
 
     io.on('connection', function (socket) {
@@ -15,7 +13,7 @@ module.exports.listen = function(app)
     var router = express.Router();
 
     /* GET home page. */
-    router.get('/notify', function(req, res, next) {
+    router.get('/', function(req, res, next) {
         socket.emit('news', { hello: 'another world' });
     });
 

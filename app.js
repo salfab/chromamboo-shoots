@@ -31,7 +31,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(80);
+app.set('socketio', io);
 app.use('/api', notifyBuild);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,7 +60,3 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-var server = app.listen(80);
-
-// socket.io
-var io = require('./socket.io').listen(server)
